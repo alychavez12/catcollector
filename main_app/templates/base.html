@@ -1,0 +1,70 @@
+<!-- NOTE: load static informs the view engine that static assets are needed here -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Materialize jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <!-- Example of how we'd do this with javascript static files -->
+    <!-- <script defer src="{% static 'js/script.js' %}"></script> -->
+    {% block title %}
+    <title>Cat Collector</title>
+    {% endblock %}
+</head>
+<body>
+    <header class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper pink darken-1">
+
+                <a  class="brand-logo" href="{% url 'home' %}"><i class="material-icons">cloud</i>Cat Collector</a>
+                <ul class="right">
+                    <li>
+                        <a href="{% url 'about' %}">About</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'cats_index' %}">View All Cats</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'cat_create' %}">Add a Cat</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'toys_index' %}">View All Toys</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'toy_create' %}">Add a Toy</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}">Signup</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="container">
+        {% block content %} 
+        {% endblock %}
+    </main>
+    <footer class="page-footer pink lighten-5 blue-grey-text">
+        <p>Copyright &copy; All Rights Reserved Cat Collector 2023</p>
+    </footer>
+</body>
+</html>
